@@ -1,0 +1,35 @@
+https://www.ptt.cc/bbs/Gossiping/M.1462048043.A.E11.html
+kuangjc5566 (匡匡56)
+Gossiping
+Re: [問卦] c\c++大輸java的八卦
+Sun May  1 04:27:18 2016
+哭三小？？？這世界上你所謂的JavaAPI只有一套哪來什麼取代不取代的你根本沒搞懂OpenJDK是什麼玩意還有跟Oracle的Java差異在哪裡當初Sun要把Java變成opensource的所以啟動了OpenJDK計畫裡面包含了JavaClassLibrary的原始碼而原始碼是以GNUGPL和linkingexception的授權放出來的所以OpenJDK從一起開始就是Sun放出來的，也就是現在的Oracle放出來的你應該是以為冠以Open之名的OpenJDK和Oracle完全沒關係吧事實是OpenJDK跟Oracle的JDK原始碼幾乎一模一樣因為OpenJDK從Java7之後就是Java的參考實作所以Oracle的Java跟OpenJDK兩者的JavaClassLibrary原始碼根本是一模一樣的而Android的JavaClassLibrary實作是來自ApacheHarmony計畫這是用Apache授權放出來的而GNUGPL授權和Apache授權是不相容的後來Oracle告GoogleGoogle大概是覺得贏不了了所以就把ApacheHarmony的JavaClassLibrary從AndroidN這版之後換成OpenJDK的實做了換句話說Google把原來Android的JavaClassLibrary實作拋棄掉換成Oracle的JDK或JRE中包含的JavaClassLibrary一模一樣的東西所以是Google向Oracle投降了，而且改成用Oracle在用的那套JavaClassLibrary好嗎--
+
+https://www.ptt.cc/bbs/Gossiping/M.1462048116.A.96F.html
+cloud72426 (數字只是輔助不是真理)
+Gossiping
+Re: [問卦] 為什麼 當常備兵的人 都瞧不起替代役
+Sun May  1 04:28:33 2016
+我當替代役的時候根本不知道可以申請還是可以去抽我是去體檢的時候太瘦然後莫名其妙就變替代役了而且那時候只要你體檢的時候是體位問題就算之後去報到變成正常體位你也不會變成一般常備役只會往下不會往上然後我跟我當過兵的朋友說我替代役耶就被罵就廢物阿...靠北又不是故意的...我一開始都做好了要去當兵的心理準備了說...老實說替代役真的很爽(大部分的役別都挺爽的)但是也是真的有幫國家做到事去哪裡請這麼便宜的公務員?我當替代役的時候我完全不覺得那些約聘的做的事有比我多比我有用但是他拿2萬~3萬我拿10000(含伙食費)哭哭1萬塊三餐要自己搞定...比當常備役還克難阿...不過還好我家有錢啦我自己在宿舍牽網路買新電腦宿舍還有阿姨會打掃整理都不用弄假日值班的時候都在宿舍打魔獸爭霸辦公室叫學弟顧還蠻爽的--
+
+https://www.ptt.cc/bbs/Gossiping/M.1462049390.A.B42.html
+kai6366 (k6)
+Gossiping
+[問卦] 有沒有飲料店老闆娘很會生的八卦？
+Sun May  1 04:49:47 2016
+剛剛沒分類好再發一次餓死胎頭今天肥宅啊買飲料時正要咬手邊的雞排幹！！！老闆娘的肚子什麼時候變這麼大惹？！問旁邊高富帥低頭看了一下肥宅說啊不就早上搖飲料晚上搖懶覺啊不就早上搖飲料晚上搖懶覺啊不就早上搖飲料晚上搖懶覺不愧是高富帥隨便一句話都講的風度翩翩乾可是要怎麼搖啊？總不可能懶覺跟飲料杯一樣大吧？有沒有飲料系的說明一下？--
+
+https://www.ptt.cc/bbs/Gossiping/M.1462049947.A.597.html
+minejel (夢幻泡影)
+Gossiping
+[問卦] 有沒有末日的八卦
+Sun May  1 04:59:04 2016
+還有多久才又到芥末日距離上次都過得快忘記時間了等等PTT爆炸後大家該何去何從阿這麼早也沒早餐可買QQ--
+
+https://www.ptt.cc/bbs/Gossiping/M.1462052979.A.400.html
+sakurainTW (SaKuRa)
+Gossiping
+[問卦] 有沒有酒喝了說八卦的卦
+Sun May  1 05:49:37 2016
+安安大家好老魯之前在臺北混水摸魚的時候常常聽到男性友人去完酒店後開始說同行的人醉後的八卦為什麼酒一喝就會連房事都拿出來說啊不怕小姐或朋友說出去嗎檯面很多人在酒店都很愛說自己賤內的事有沒有為什麼喝酒就要傳八卦給大家聽的卦啊--
+

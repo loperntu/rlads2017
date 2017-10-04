@@ -1,0 +1,74 @@
+# 1996 States Statistics
+#
+# Reference: See Tables 761, 337, 307, 42 and 744 of the 
+#  1998 Statistical Abstract  of the United States.
+# 
+# Description: Various 1996 statistics for all 50 U.S. states and the 
+#  District of Columbia.
+#
+# Number of cases: 51
+#
+# Variable Names:
+#    1. STATE: state abbreviation
+#    2. POVERTY: percentage of the state's population living in poverty
+#    3. CRIME: violent crime rate per 100,000 population
+#    4. COLLEGE: percentage of states's population in a certain age range 
+#                 who are enrolled full time in college
+#    5. METRO: percentage of the state's population living in a metropolitan 
+#              area
+#    6. INCOME: median household income in 1996 dollars
+#
+# varnames = STATE POVERTY CRIME COLLEGE METRO INCOME
+STATE POVERTY CRIME COLLEGE METRO INCOME
+AL  14.0    565        68.5    67.7  30302
+AK   8.2    728	   41.2    41.3  52779
+AZ  20.5    632	   47.4    87.6  31637
+AR  17.2    524	   67.3    48.3  27123
+CA  16.9    863	   47.1    96.6  38812
+CO  10.6    405	   53.9    84.0  40950
+CT  11.7    412	   53.4    95.6  42119
+DE   8.6    668	   58.4    81.9  39309
+DC  24.1   2470	   66.5   100.0  31966
+FL  14.2   1051	   48.2    92.9  30641
+GA  14.8    639	   67.3    68.5  32496
+HI  12.1    281	   57.5    73.6  41772
+ID  11.9    267	   68.2    37.5  34709
+IL  12.1    886	   51.4    84.1  39554
+IN   7.5    537	   66.9    71.7  35147
+IA   9.6    273	   68.8    44.3  33209
+KS  11.2    414	   55.5    55.4  32585
+KY  17.0    321	   66.3    48.2  32413
+LA  20.5    929	   71.1    75.2  30262
+ME  11.2    125	   57.1    35.8  34696
+MD  10.3    931	   49.2    92.8  43993
+MA  10.1    642	   63.7    96.1  39494
+MI  11.2    635	   50.9    82.4  39225
+MN   9.8    339	   59.7    69.7  40991
+MS  20.6    488	   74.0    35.3  26677
+MO   9.5    591	   58.4    68.0  34265
+MT  17.0    161	   76.4    23.5  28684
+NE  10.2    435	   57.3    51.3  34014
+NV   8.1    811	   32.4    85.7  38540
+NH   6.4    118	   61.2    59.8  39407
+NJ   9.2    532	   53.9   100.0  47468
+NM  25.5    841	   49.7    56.7  25086
+NY  16.7    727	   64.7    91.8  35410
+NC  12.2    588	   64.5    66.8  35601
+ND  11.0     84	   79.7    42.7  31470
+OH  12.7    429	   62.8    81.1  34070
+OK  16.6    597	   60.6    60.2  27437
+OR  11.8    463	   55.5    70.2  35492
+PA  11.6    433	   62.9    84.6  34899
+RI  11.0    347	   64.0    93.8  36986
+SC  13.0    997	   63.8    69.6  34665
+SD  11.8    177	   72.8    33.3  29526
+TN  15.9    774	   65.5    68.0  30790
+TX  16.6    644	   54.6    84.2  33072
+UT   7.7    332	   63.4    77.1  37038
+VT  12.6    121	   68.9    27.7  32358
+VA  12.3    341	   57.2    77.9  39211
+WA  11.9    431	   61.5    82.8  36676
+WV  18.5    210	   69.6    41.8  25247
+WI   8.8    253	   60.9    67.7  40001
+WY  11.9    250	   57.0    29.7  30953
+
