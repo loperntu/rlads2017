@@ -80,7 +80,7 @@ Week | Date   | Topic         | Lab
 - <span style="color:blue; font-weight:bold"> Week.2 </span>: [Week 02](lectures/01/index.html) 
 -->
 
-- <span style="color:blue; font-weight:bold"> 第四週 </span>: [Rmd](case1.Rmd), [HTML](case1.html) 
+- <span style="color:blue; font-weight:bold"> 第四週 </span>: [Rmd](./case.study/case1.Rmd), [HTML](./case.study/case1.html) 
 
 
 
