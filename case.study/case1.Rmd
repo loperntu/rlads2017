@@ -67,17 +67,25 @@ summary(cars)
 不過，利用 $\mathcal{R}$ 內建的函式已經可以做很多事了。
 
 ```{r}
+# 可以先利用內建 (built-in) 的數據來親近 R
 #data()
+
 #head()
 #tail()
 #names()
 #dim()
+par(mfrow=c(1,2))
 ```
 
 
-# 案例練習：台灣的流浪狗
+# 小組案例練習：幫助台灣的流浪狗
+
+- 從這筆資料可以看出什麼訊息？
 
 ```{r}
-dogs <- read.table("../data/txt/dogs.txt",row.names = 1)
-par(mfrow=c(1,2))
+# read.table(): imports a data table from a file and create a data frame
+dogs <- read.table("../data/txt/dogs.txt",header = TRUE)
+#dogs <- read.table("https://raw.githubusercontent.com/loperntu/rlads2017/master/data/txt/dogs.txt", header = TRUE)
+dogs
+
 ```
