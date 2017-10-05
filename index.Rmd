@@ -18,9 +18,9 @@ ext_widgets:
 
 # R 語言與資料科學導論
 
-
+<!--
 <a href="http://prose.io/#{{site.github.user}}/{{site.github.repo}}/edit/gh-pages/index.Rmd" class="button icon edit">Edit Page</a>
-
+-->
 
 ```{r setup, cache = F, echo = F}
 knitr::knit_hooks$set(document = function(doc){
@@ -79,23 +79,26 @@ Week | Date   | Topic         | Lab
 
 ## 課程投影片 
 
+<!-- 
+- <span style="color:blue; font-weight:bold"> Week.1 </span>: [Week 01](lectures/00/index.html) 
+- <span style="color:blue; font-weight:bold"> Week.2 </span>: [Week 02](lectures/01/index.html) 
+-->
 
-```{r echo = F, results = 'asis'}
-# lectures = dir('lectures', full = TRUE)
-# links = paste0(seq_along(lectures), ". ", 
-#   "[Lecture ", basename(lectures), "]", "(", lectures, "/index.html)"
-# )
-# writeLines(links)
-```
+- <span style="color:blue; font-weight:bold"> 第四週 </span>: [Rmd](case1.Rmd), [HTML](case1.html) 
 
-<!-- - [Week 02](lectures/03/index.html) -->
 
 
 ## 助教講義、習題與作業
 
-[評分標準(to be updated)](http://lope.linguistics.ntu.edu.tw/courses/data_science/grading_policy2016.html)
+[評分標準](http://lope.linguistics.ntu.edu.tw/courses/data_science/grading_policy2016.html)
 
-- <span style="color:blue; font-weight:bold"> Week.2 </span>: [In-class exercise and homework](https://docs.google.com/presentation/d/1xHbhQNcSbvzlDZmJWs1mu2iWVAqZHzPAFFBE1b5-VOA/edit?usp=sharing) 
+- <span style="color:blue; font-weight:bold"> 第二週 </span>: [lab 講義](https://docs.google.com/presentation/d/1xHbhQNcSbvzlDZmJWs1mu2iWVAqZHzPAFFBE1b5-VOA/edit?usp=sharing) 
+
+- <span style="color:blue; font-weight:bold"> 第四週 </span>: [lab 講義](https://docs.google.com/presentation/d/1uuuDa1ssay7179Ez0VXIWaISRuSlP0w_3gsr7YFkMuQ/edit?usp=sharing)
+
+
+### 作業
+- <span style="color:blue; font-weight:bold"> 第四週 </span>: [homework](https://github.com/RLadsNTU/RLadsLab/blob/master/W4_RBasics/W4_RBasics.Rmd)
 
 
 ## 課程教材
@@ -122,7 +125,6 @@ Week | Date   | Topic         | Lab
 
 
 ## 小組作業觀摩
-
 
 
 ## Capstone projects
