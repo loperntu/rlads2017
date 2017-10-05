@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Introducing Data Science with R</title>
+    <link rel="stylesheet" href="libraries/frameworks/minimal/stylesheets/styles.css">
+    <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/solarized_light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+        <link rel=stylesheet href="libraries/widgets/nvd3/css/nv.d3.css"></link>
+<link rel=stylesheet href="libraries/widgets/nvd3/css/rNVD3.css"></link>
+
+    <script src="libraries/widgets/nvd3/js/jquery-1.8.2.min.js"></script>
+<script src="libraries/widgets/nvd3/js/d3.v3.min.js"></script>
+<script src="libraries/widgets/nvd3/js/nv.d3.min-new.js"></script>
+<script src="libraries/widgets/nvd3/js/fisheye.js"></script>
+
+  </head>
+  <body>
+    <div class="wrapper">
+<header>
+  <h1>Introducing Data Science with R</h1>
+  <p>Rlads</p>
+  <p class="view">
+    <a href="http://github.com/loperntu/rlads2017">
+     View the Project on GitHub <small>loperntu/rlads2017</small>
+    </a>
+  </p>
+  <ul class='buttons'>
+    <li><a href="https://github.com/loperntu/rlads2017/zipball/gh-pages">
+      Download <strong>ZIP File</strong>
+    </a></li>
+    <li><a href="https://github.com/loperntu/rlads2017/tarball/gh-pages">
+      Download <strong>TAR Ball</strong>
+    </a></li>
+    <li><a href="http://github.com/loperntu/rlads2017">
+      Fork On <strong>GitHub</strong></a>
+    </li>
+  </ul>
+    <ol>
+    </ol>
+</header>
+
+      <section>
+        <h1>R 語言與資料科學導論</h1>
+<!--
+<a href="http://prose.io/#//edit/gh-pages/index.Rmd" class="button icon edit">Edit Page</a>
+-->
+
+<p><code>資料科學家</code>的工作, 可以視為是一個探索、預測與解讀資料意義的互動歷程。而<code>語言分析</code>的工作, 在了解文本資料的語意與情緒表現上是重要的關鍵。本課程結合 了目前統計程式設計與自然語言處理技術, 以較為簡潔容易入門的設計與實際操作導引, 希望可以讓毫無相關程式學習基礎的學生在本課程的帶領下, 達到以下的學習目標:</p>
+
+<ul>
+<li>瞭解 R 語言的基本知識。</li>
+<li>瞭解結構與非結構性資料的特性與預處理工作, 特別是針對中文文本中呈現的語言特性的處理方法。</li>
+<li><span style="color:blue; font-weight:bold">了解中文的語言特性與文本解析 (text analytics) 的基本概念。</span></li>
+<li>選擇適當的變數與特徵並加以合理調製, 對之進行描述統計與視覺探勘, 針對不同的問題點與數據類型, 找出適當的圖形表達與統計分析。</li>
+<li>學習簡易的自然語言處理與機器學習預測模式, 並應用在自己關心的領域。</li>
+<li>學習實作資料科學專案與溝通表達。</li>
+</ul>
+
+<h2>課綱</h2>
+
+<p><a href="dsR2017-8.pdf">詳細一點的版本</a> </p>
+
+<table><thead>
+<tr>
+<th>Week</th>
+<th align="center">Date</th>
+<th>Topic</th>
+<th>Lab</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1</td>
+<td align="center">09/14</td>
+<td>Orientation</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td align="center">09/21</td>
+<td>Introduction to Data Science and Text Analytics</td>
+<td>Installing R and Rstudio</td>
+</tr>
+<tr>
+<td>3</td>
+<td align="center">09/28</td>
+<td>Introduction to Data Science and Text Analytics</td>
+<td>R overview; data types and structures</td>
+</tr>
+<tr>
+<td>4</td>
+<td align="center">10/05</td>
+<td>Preparing / Obtaining Data</td>
+<td>data structures; built-in plot; looping</td>
+</tr>
+<tr>
+<td>5</td>
+<td align="center">10/12</td>
+<td>Scrubbing Data</td>
+<td>Data wrangling, vectorization, tidyverse</td>
+</tr>
+<tr>
+<td>6</td>
+<td align="center">10/19</td>
+<td>Exploratory Data Analysis and Graphics</td>
+<td>encoding; string processing; regular expression</td>
+</tr>
+<tr>
+<td>7</td>
+<td align="center">10/26</td>
+<td>Exploratory data analysis and Graphics</td>
+<td>data manipulation (with regex)</td>
+</tr>
+<tr>
+<td>8</td>
+<td align="center">11/02</td>
+<td>Corpus and Natural Language Processing</td>
+<td>handling Chinese textual data</td>
+</tr>
+<tr>
+<td>9</td>
+<td align="center">11/09</td>
+<td><strong>Mid-term exam</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td align="center">11/16</td>
+<td>Corpus and Statistics</td>
+<td>web crawling:HTML parsing (rvest)</td>
+</tr>
+<tr>
+<td>11</td>
+<td align="center">11/23</td>
+<td>Advanced Graphics</td>
+<td>ggplot2, plot.ly</td>
+</tr>
+<tr>
+<td>12</td>
+<td align="center">11/30</td>
+<td>Machine Learning Basics: Classification and Clustering</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td align="center">12/07</td>
+<td>Regression</td>
+<td>Shiny Web application [I]</td>
+</tr>
+<tr>
+<td>14</td>
+<td align="center">12/14</td>
+<td>Sentiment analysis</td>
+<td>Shiny Web application [II]</td>
+</tr>
+<tr>
+<td>15</td>
+<td align="center">12/21</td>
+<td>Current Topics in Text Analytics</td>
+<td>Shiny Web application [III]</td>
+</tr>
+<tr>
+<td>16</td>
+<td align="center">12/28</td>
+<td>Reporting and Presenting Data</td>
+<td>Shiny Web application [IV]</td>
+</tr>
+<tr>
+<td>17</td>
+<td align="center">01/04</td>
+<td>Term project competition/presentation</td>
+<td></td>
+</tr>
+<tr>
+<td>18</td>
+<td align="center">01/11</td>
+<td><strong>Final term project and report due</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h2>教練團</h2>
+
+<pre><code class="coffee">謝舒凱 &lt;shukaihsieh@g.ntu.edu.tw&gt;
+曾昱翔 &lt;seantyh@gmail.com&gt;
+梁文宣 &lt;r05724080@ntu.edu.tw&gt;
+李智堯 &lt;chiyaolee@gmail.com&gt;
+吳小涵 &lt;c04s84@gmail.com&gt;
+</code></pre>
+
+<h2>課程投影片</h2>
+
+<!-- 
+- <span style="color:blue; font-weight:bold"> Week.1 </span>: [Week 01](lectures/00/index.html) 
+- <span style="color:blue; font-weight:bold"> Week.2 </span>: [Week 02](lectures/01/index.html) 
+-->
+
+<ul>
+<li><span style="color:blue; font-weight:bold"> 第四週 </span>: <a href="./case.study/case1.Rmd">Rmd</a>, <a href="./case.study/case1.html">HTML</a> </li>
+</ul>
+
+<h2>助教講義、習題與作業</h2>
+
+<p><a href="http://lope.linguistics.ntu.edu.tw/courses/data_science/grading_policy2016.html">評分標準</a></p>
+
+<ul>
+<li><p><span style="color:blue; font-weight:bold"> 第二週 </span>: <a href="https://docs.google.com/presentation/d/1xHbhQNcSbvzlDZmJWs1mu2iWVAqZHzPAFFBE1b5-VOA/edit?usp=sharing">lab 講義</a> </p></li>
+<li><p><span style="color:blue; font-weight:bold"> 第四週 </span>: <a href="https://docs.google.com/presentation/d/1uuuDa1ssay7179Ez0VXIWaISRuSlP0w_3gsr7YFkMuQ/edit?usp=sharing">lab 講義</a></p></li>
+</ul>
+
+<h3>作業</h3>
+
+<ul>
+<li><span style="color:blue; font-weight:bold"> 第四週 </span>: <a href="https://github.com/RLadsNTU/RLadsLab/blob/master/W4_RBasics/W4_RBasics.Rmd">homework</a></li>
+</ul>
+
+<h2>課程教材</h2>
+
+<p>在課程投影片中講解基本概念，如果有興趣了解進階內容，可參考以下線上教材</p>
+
+<ul>
+<li><a href="https://www.gitbook.com/book/loperntu/ladsbook/details">語言分析與資料科學</a> </li>
+<li><a href="https://www.gitbook.com/book/loperntu/copens/details">開放語料庫：製程與分析</a></li>
+</ul>
+
+<h2>課程相關活動</h2>
+
+<ul>
+<li><a href="">NTU CEIBA</a></li>
+<li><a href="">課堂共筆</a></li>
+<li><a href="">學習共筆</a></li>
+<li><a href="https://www.facebook.com/groups/652099794893097/">臉書社團</a></li>
+</ul>
+
+<h2>課程精神</h2>
+
+<ol>
+<li>自主學習</li>
+<li>跨學門協作</li>
+</ol>
+
+<h2>作業分數分佈圖</h2>
+
+<h2>小組作業觀摩</h2>
+
+<h2>Capstone projects</h2>
+
+<ul>
+<li><p><a href="https://docs.google.com/spreadsheets/d/19ggUvFCVbFxfWdmzPcjLmDoZfXnE8DJAaYzuNPNBrbQ/edit#gid=0">分組名單</a></p></li>
+<li><p><a href="">pttR</a></p></li>
+</ul>
+
+<p><a href='lectures/00/index.html#9'>
+<img style='border: 1px solid;' width=100% src='./assets/img/neocilin.png'></img>
+</a></p>
+
+      </section>
+      <footer>
+        <p>Maintained by <a href="http://github.com/loperntu">
+          Shu-Kai Hsieh
+        </a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by 
+          <a href="https://github.com/orderedlist">orderedlist</a></small>
+        </p>
+      </footer>    </div>
+    <script src="libraries/frameworks/minimal/javascripts/scale.fix.js"></script>
+  </body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
