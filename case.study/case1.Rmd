@@ -33,6 +33,8 @@ The Data Science Process
 
 ```{r}
 # example
+log(3)
+3^2
 ```
 
 
@@ -69,12 +71,13 @@ summary(cars)
 ```{r}
 # 可以先利用內建 (built-in) 的數據來親近 R
 #data()
-
 #head()
 #tail()
 #names()
 #dim()
-# par() 用來設定畫圖相關的參數
+#cor()
+#plot()
+#par() 用來設定畫圖相關的參數
 par(mfrow=c(1,2))
 ```
 
