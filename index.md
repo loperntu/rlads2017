@@ -82,6 +82,7 @@ Week | Date   | Topic         | Lab
 
 - <span style="color:blue; font-weight:bold"> 第四週 </span>: [Rmd](./case.study/case1.Rmd), [HTML](./case.study/case1.html) 
 
+- <span style="color:blue; font-weight:bold"> 第五週 </span>: [Rmd](./case.study/case2.Rmd), [HTML](./case.study/case2.html) [data](https://github.com/loperntu/rlads2017/tree/gh-pages/data)
 
 
 ## 助教講義、習題與作業
@@ -91,6 +92,8 @@ Week | Date   | Topic         | Lab
 - <span style="color:blue; font-weight:bold"> 第二週 </span>: [lab 講義](https://docs.google.com/presentation/d/1xHbhQNcSbvzlDZmJWs1mu2iWVAqZHzPAFFBE1b5-VOA/edit?usp=sharing) 
 
 - <span style="color:blue; font-weight:bold"> 第四週 </span>: [lab 講義](https://docs.google.com/presentation/d/1uuuDa1ssay7179Ez0VXIWaISRuSlP0w_3gsr7YFkMuQ/edit?usp=sharing)
+
+- <span style="color:blue; font-weight:bold"> 第五週 </span>: [lab 講義](https://docs.google.com/presentation/d/1XNoI9V66NNagd12ytFp3L3R0a3OM_SUQ16_rIRQAA3g/edit#slide=id.g27d4b470bc_0_0)
 
 
 ### 作業
