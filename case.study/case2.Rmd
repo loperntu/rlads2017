@@ -28,7 +28,7 @@ output: html_notebook
 
 ## 案例 A：玩不膩的鳶尾花
 
-`iris` 各種檔案輸入練習。
+`iris` 各種檔案輸入練習。(G1 -> G2 -> ....-> G1)
 
 
 
@@ -36,6 +36,7 @@ output: html_notebook
 ## Data transformation/munging/wrangling (using `dplyr`)
 
 - "載入資料之後，就進入資料整理（Data manipulation）或稱資料改寫（Data munging）、資料角力（Data wrangling）的部分。目的是為了方便探索、或者機器學習模型需求，必須將資料整理成合乎需求的格式。
+- 到底什麼是 data manipulation?
 
 > 進入資料探索分析 `Data Transformation` [第二張重要小抄](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
 
@@ -97,8 +98,6 @@ read_data("/some/path/some_file.data") %>%
 library(tidyverse)
 iris %>% summary()
 iris %>% head(5)
-
-
 ```
 
 
@@ -110,13 +109,6 @@ iris %>%
   qplot(Species, Petal.Length, geom = "boxplot", data = .)
 
 ```
-
-
-```{r}
-d <- data.frame(x = rnorm(10), y = rnorm(10))
-d %>% lm(y~x, data = .)
-```
-
 
 
 
