@@ -47,7 +47,7 @@ Week | Date   | Topic         | Lab
 4    | 10/05  | Preparing / Obtaining Data | data structures; built-in plot; looping
 5    | 10/12	| Scrubbing Data | Data wrangling, vectorization, tidyverse
 6    | 10/19	| Exploratory Data Analysis and Graphics | encoding; string processing; regular expression
-7    | 10/26  | Exploratory data analysis and Graphics | data manipulation (with regex)
+7    | 10/26  | Exploratory Data analysis and Graphics | data manipulation (with regex)
 8    | 11/02	| Corpus and Natural Language Processing  | handling Chinese textual data
 9    | 11/09	| **Mid-term exam** 	 | 
 10   | 11/16	| Corpus and Statistics    | web crawling:HTML parsing (rvest)
@@ -73,28 +73,20 @@ Week | Date   | Topic         | Lab
 ```
 
 
-## 課程投影片 
+## 課程投影片
 
 <!-- 
 - <span style="color:blue; font-weight:bold"> Week.1 </span>: [Week 01](lectures/00/index.html) 
 - <span style="color:blue; font-weight:bold"> Week.2 </span>: [Week 02](lectures/01/index.html) 
 -->
-
-- <span style="color:blue; font-weight:bold"> 第四週 </span>: [Rmd](https://github.com/loperntu/rlads2017/blob/master/case.study/case1.Rmd), [HTML](https://github.com/loperntu/rlads2017/blob/master/case.study/case1.html) 
-
+- [網址](https://github.com/loperntu/rlads2017)
 
 
 ## 助教講義、習題與作業
 
-[評分標準](http://lope.linguistics.ntu.edu.tw/courses/data_science/grading_policy2016.html)
-
-- <span style="color:blue; font-weight:bold"> 第二週 </span>: [lab 講義](https://docs.google.com/presentation/d/1xHbhQNcSbvzlDZmJWs1mu2iWVAqZHzPAFFBE1b5-VOA/edit?usp=sharing) 
-
-- <span style="color:blue; font-weight:bold"> 第四週 </span>: [lab 講義](https://docs.google.com/presentation/d/1uuuDa1ssay7179Ez0VXIWaISRuSlP0w_3gsr7YFkMuQ/edit?usp=sharing)
-
-
-### 作業
-- <span style="color:blue; font-weight:bold"> 第四週 </span>: [homework](https://github.com/RLadsNTU/RLadsLab/blob/master/W4_RBasics/W4_RBasics.Rmd)
+- [評分標準](http://lope.linguistics.ntu.edu.tw/courses/data_science/grading_policy2016.html)
+- [網址](https://sites.google.com/ntu.edu.tw/rladsntu/home)
+- [程式網址](https://github.com/RLadsNTU/RLadsLab)
 
 
 ## 課程教材
@@ -107,7 +99,6 @@ Week | Date   | Topic         | Lab
 
 ## 課程相關活動
 - [NTU CEIBA]()
-- [課堂共筆]()
 - [學習共筆]()
 - [臉書社團](https://www.facebook.com/groups/652099794893097/)
 

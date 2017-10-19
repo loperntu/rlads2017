@@ -182,7 +182,6 @@ cor(movies$rating, movies$length)
 
 可以先預習（偷跑）
 - `plot()` - `qplot()` - `ggplot()`  
-- 見網站講義 (`VisR_quick.R`)
 - 中文資料參考
   - http://molecular-service-science.com/2013/11/27/r-ggplot-tutorial-1/
   - http://molecular-service-science.com/2014/01/23/r-ggplot-tutorial-2/
