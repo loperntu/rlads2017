@@ -86,9 +86,6 @@ read_data("/some/path/some_file.data") %>%
 
 - `dplyr`
 
-```{r}
-
-```
 
 
 
@@ -132,7 +129,9 @@ A data frame with 58788 rows and 24 variables:
 
 
 ```{r}
-movies <- read_csv(url("https://raw.githubusercontent.com/hadley/ggplot2movies/master/data-raw/movies.csv"))
+install.packages("ggplot2movies")
+library(ggplot2movies)
+#movies <- read_csv(url("https://raw.githubusercontent.com/hadley/ggplot2movies/master/data-raw/movies.csv"))
 dim(movies)
 head(movies)
 ```

@@ -1,0 +1,284 @@
+---
+title: "案例學習三"
+output: html_notebook
+---
+
+
+
+# 目前要會的流程
+
+- Acquiring your data
+- Understanding your data
+- Cleaning up / treating NA and outliers
+- Wrangling your data
+    - Merging dataframes: Joins, unions, and bindings 
+    - Subsetting: filter and select from a dataframe
+    - Creating a derived column
+    - Reshaping a dataframe between wide and long 
+    - Piping with %>% : Stringing it together in dplyr: a useful additional feature of dplyr is that you can string together a bunch of functions with the %>% (“then”) operator, a feature that is growing in popularity across a variety of R packages.
+- (Exploratory Data Analysis (EDA))
+
+
+# EDA
+`Statistics + Plot`
+
+
+- Creating summary plots
+- Plotting univariate distributions
+- Plotting bivariate and comparative distributions • Plotting survey data
+- Obtaining summary and conditional statistics
+- Inference on summary statistics
+- Dealing with missing data
+
+
+
+### Basic Statistics (next)    
+### Plot / Data Visualization
+  - 瞭解 [R base plot](http://publish.illinois.edu/johnrgallagher/files/2015/10/BaseGraphicsCheatsheet.pdf)/ [Guide](https://www.analyticsvidhya.com/blog/2015/07/guide-data-visualization-r/)
+  - 再往 [`ggplot2`](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf) （過渡期 `qplot`？）
+
+> It’s hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with ggplot(), supply a dataset and aesthetic mapping (with aes()). You then add on layers (like geom_point() or geom_histogram()), scales (like scale_colour_brewer()), faceting specifications (like facet_wrap()) and coordinate systems (like coord_flip()).
+
+
++++++++++++++++++++++++++++++
+
+## 案例：上次的電影檔
+
+```{r}
+library(tidyverse)
+require(ggplot2movies)  #install.packages("ggplot2movies")
+data(movies)
+##movies <- read_csv(url("https://raw.githubusercontent.com/hadley/ggplot2movies/master/data-raw/movies.csv"))
+```
+++++++++++++++++++++++++++++
+
+
+### 也要會讀入本機檔案
+
+```{r}
+# 絕對路徑：輸入完整的檔案路徑
+movies <- read.csv("../data/movies.csv") # for mac users
+movies <- read.csv("C:\\Users\\rlads\\data\\movies.csv") # for windows users
+```
+
+```{r}
+# 相對路徑：瞭解現在所處在的路徑
+getwd()
+# 設定我們檔案存放的路徑
+setwd() 
+# 讀檔起手式
+movies <- read.csv("movie.csv") 
+# 若讀入的是亂碼，試試以下
+movies <- read.csv("movies.csv",fileEncoding = 'big5')  # for mac
+movies <- read.csv("movies.csv",fileEncoding = 'utf-8') # for windows
+
+# 使用 readr
+
+```
+
+
+
+- 進行分析前，先了解資料的型態與特性、基本的各變數統計量值
+```{r}
+dim(movies)
+str(movies)
+summary(movies)
+head(movies)
+colnames(movies)
+```
+
+```{r}
+glimpse(movies)
+```
+
+- 取要的資料
+假設不需要 ratings 的分佈訊息，要刪掉 `r1-r10` 的變量
+
+```{r}
+movies <-select(movies,-(r1:r10)) 
+head(movies)
+```
+
+
+- 檢查缺失值 (missing values)
+
+發現 `budget` 中有許多缺失值，決定是否刪除。
+
+```{r}
+sum(is.na(movies))
+colSums(is.na(movies)) 
+mean(is.na(movies))
+# Since the proportion of missing value is small in our data, we can directly delete them
+movies <- na.omit(movies)
+sum(is.na(movies))
+```
+
+再看一次資料
+
+```{r}
+dim(movies)
+str(movies)
+```
+
+
+- 加入新變量
+
+如果要加入一個變量叫做 `century`，另一個變量叫做片名長度 `lenOfTitle`
+
+```{r}
+movies <- mutate(movies,
+  lenOfTitle = nchar(as.character(title)), ## Because title was a factor
+  century = trunc(year/100))
+
+str(movies)
+```
+
+- 開始妳的假說
+    - 電影的片長 (`length`) 與評價 (`rating`)的關聯？
+
+先分別看看其個別變量的狀況：圖形較一目瞭然。
+
+
+
+```{r}
+plot(movies$rating)
+```
+
+```{r}
+summary(movies$length)
+plot(movies$length)
+```
+
+
+發現 `length` 有一些異常值 (outliers)，要處理嗎？
+
+
+```{r}
+movies %>% filter(length>= 300) %>% 
+  arrange(desc(length)) %>% 
+  select(c(title,year,length,rating))
+```
+
+
+
+```{r}
+# Compute Pearson correlation
+cor(movies$rating, movies$length)
+```
+
+
+其他：排序、合併、切割、。。
+
+> 這裡有個 base R vs tidyverse 的 issue...
+
+見 `eda.Rmd` / `eda.html` (的比較)
+請對照 Data Wrangling 小抄來學習。
+
+++++++++++++++++++++++++++++++++++++
+## 作圖看資料
+
+### `ggplot2`: a Grammar of Graphics
+
+> 先看看這個[plots to avoid](http://genomicsclass.github.io/book/pages/plots_to_avoid.html)
+
+可以先預習（偷跑）
+- `plot()` - `qplot()` - `ggplot()`  
+- 見網站講義 (`VisR_quick.R`)
+- 中文資料參考
+  - http://molecular-service-science.com/2013/11/27/r-ggplot-tutorial-1/
+  - http://molecular-service-science.com/2014/01/23/r-ggplot-tutorial-2/
+
+
+```{r fig.width=7, fig.height=6}
+library(ggplot2)
+qplot(Sepal.Length, Petal.Length, data = iris, color = Species, size = Petal.Width)
+```
+
+
+Individual variables
+- simple histograms of rating, year, length, votes and length of title
+
+```{r}
+ggplot(data=movies,aes(x = rating))+
+  geom_histogram(binwidth=0.5)
+```
+
+
+
+```{r}
+ggplot(data=movies,aes(x = length))+
+  geom_histogram(binwidth=0.5)
+```
+
+```{r}
+ggplot(data=movies,aes(x = year))+
+  geom_histogram(binwidth=1)
+
+```
+
+
+```{r}
+ggplot(data=movies,aes(x = length))+
+  geom_histogram(binwidth=3)+
+  xlim(c(0,quantile(movies$length,0.99)))
+```
+
+有看出什麼端倪嗎？
+
+- 兩個變量的觀察？
+```{r}
+mplot2 <- ggplot(movies,aes(year,rating))
+mplot2 + geom_point(aes(colour = length)) + scale_colour_gradient(low = "green",high="red")
+```
+
+#### When not to use the pipe
+
+> The pipe is a powerful tool, but it’s not the only tool at your disposal, and it doesn’t solve every problem! Pipes are most useful for rewriting a fairly short linear sequence of operations. I think you should reach for another tool when:
+- Your pipes are longer than (say) ten steps. In that case, create intermediate objects with meaningful names. That will make debugging easier, because you can more easily check the intermediate results, and it makes it easier to understand your code, because the variable names can help communicate intent.
+- You have multiple inputs or outputs. If there isn’t one primary object being transformed, but two or more objects being combined together, don’t use the pipe.
+- You are starting to think about a directed graph with a complex dependency structure. Pipes are fundamentally linear and expressing complex relationships with them will typically yield confusing code.
+
+
+
+
++++++++++++++++++++++++++++++++
+
+> 怎麼分析第二筆電影資料 
+
+```{r}
+movies.2 <- read_csv("movie_metadata.csv")
+```
+
+- 團體練習：把程式與想法丟在 https://paper.dropbox.com/doc/Case-Study-Collaborative-Way-64YWTbYXKEviSqG8yppsc
+
+
++++++++++++++++++++++++++++++++
+
+- sort movies made in the USA by budget
+
+```{r}
+usa_by_budget <- movies.2 %>% 
+  filter(country == 'USA') %>% 
+  arrange(desc(budget))
+nrow(usa_by_budget)
+```
+
+
+
+```{r}
+plot(usa_by_budget$budget)
+```
+
+
+```{r}
+top_100 <- head(usa_by_budget, 100)
+plot(top_100$gross - top_100$budget)
+```
+
+
+- Now create a subset of the data with movies shorter than 700 minutes, then create a bat chart for `Type`?
+
+- Merge these two data set?
+
+
+
