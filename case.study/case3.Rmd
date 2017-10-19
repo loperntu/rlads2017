@@ -58,23 +58,21 @@ data(movies)
 
 ```{r}
 # 絕對路徑：輸入完整的檔案路徑
-movies <- read.csv("../data/movies.csv") # for mac users
 movies <- read.csv("C:\\Users\\rlads\\data\\movies.csv") # for windows users
+# 相對路徑：瞭解現在所處在的路徑
+movies <- read.csv("../data/movies.csv") # for mac users
+getwd()
+# 設定我們檔案存放的路徑的函數
+setwd() 
 ```
 
 ```{r}
-# 相對路徑：瞭解現在所處在的路徑
-getwd()
-# 設定我們檔案存放的路徑
-setwd() 
-# 讀檔起手式
+# 讀檔
 movies <- read.csv("movie.csv") 
 # 若讀入的是亂碼，試試以下
 movies <- read.csv("movies.csv",fileEncoding = 'big5')  # for mac
 movies <- read.csv("movies.csv",fileEncoding = 'utf-8') # for windows
-
 # 使用 readr
-
 ```
 
 
