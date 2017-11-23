@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>案例學習四</title>
+  <meta charset="utf-8">
+  <meta name="description" content="案例學習四">
+  <meta name="author" content="">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="http://slidifylibraries2.googlecode.com/git/inst/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/js/slides" 
+    src="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>案例學習四</h1>
+    <h2></h2>
+    <p><br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">needed &lt;- c(&quot;jiebaR&quot;, &quot;tidytext&quot;, &quot;gutenbergr&quot;, &quot;rvest&quot;, &quot;wordcloud2&quot;)
+install.packages(needed)
+</code></pre>
+
+<pre><code>## Error in contrib.url(repos, &quot;source&quot;): trying to use CRAN without setting a mirror
+</code></pre>
+
+<h2>Text as Data</h2>
+
+<h2>REGEX</h2>
+
+<h2>EDA of Textual Data</h2>
+
+<h3>中文的處理</h3>
+
+<pre><code class="r">library(gutenbergr)
+</code></pre>
+
+<pre><code>## Warning: package &#39;gutenbergr&#39; was built under R version 3.2.5
+</code></pre>
+
+<pre><code class="r">library(jiebaR)
+</code></pre>
+
+<pre><code>## Warning: package &#39;jiebaR&#39; was built under R version 3.2.5
+</code></pre>
+
+<pre><code>## Loading required package: jiebaRD
+</code></pre>
+
+<pre><code class="r">library(jiebaRD)
+library(wordcloud)
+</code></pre>
+
+<pre><code>## Loading required package: RColorBrewer
+</code></pre>
+
+<ul>
+<li>為何需要斷詞</li>
+</ul>
+
+<pre><code class="r"># 建立斷詞類型
+cutter &lt;- worker()
+cutter 
+</code></pre>
+
+<pre><code>## Worker Type:  Jieba Segment
+## 
+## Default Method  :  mix
+## Detect Encoding :  TRUE
+## Default Encoding:  UTF-8
+## Keep Symbols    :  FALSE
+## Output Path     :  
+## Write File      :  TRUE
+## By Lines        :  FALSE
+## Max Word Length :  20
+## Max Read Lines  :  1e+05
+## 
+## Fixed Model Components:  
+## 
+## $dict
+## [1] &quot;/Library/Frameworks/R.framework/Versions/3.2/Resources/library/jiebaRD/dict/jieba.dict.utf8&quot;
+## 
+## $user
+## [1] &quot;/Library/Frameworks/R.framework/Versions/3.2/Resources/library/jiebaRD/dict/user.dict.utf8&quot;
+## 
+## $hmm
+## [1] &quot;/Library/Frameworks/R.framework/Versions/3.2/Resources/library/jiebaRD/dict/hmm_model.utf8&quot;
+## 
+## $stop_word
+## NULL
+## 
+## $user_weight
+## [1] &quot;max&quot;
+## 
+## $timestamp
+## [1] 1508970209
+## 
+## $default $detect $encoding $symbol $output $write $lines $bylines can be reset.
+</code></pre>
+
+<ul>
+<li>斷詞簡單例子</li>
+</ul>
+
+<pre><code class="r">cutter[&quot;台大最近的新聞怎麼這麼多&quot;]
+</code></pre>
+
+<pre><code>## [1] &quot;台大&quot; &quot;最近&quot; &quot;的&quot;   &quot;新聞&quot; &quot;怎麼&quot; &quot;這麼&quot; &quot;多&quot;
+</code></pre>
+
+<pre><code class="r">cutter[&quot;據台大語言所小編謝舒凱表示，宅宅也是非常用功 der&quot;]
+</code></pre>
+
+<pre><code>##  [1] &quot;據&quot;     &quot;台大&quot;   &quot;語言所&quot; &quot;小編&quot;   &quot;謝舒凱&quot; &quot;表示&quot;   &quot;宅宅&quot;  
+##  [8] &quot;也&quot;     &quot;是&quot;     &quot;非常&quot;   &quot;用功&quot;   &quot;der&quot;
+</code></pre>
+
+<pre><code class="r">cutter = worker(stop_word =&quot;stop.txt&quot;)
+</code></pre>
+
+<pre><code>## Error in worker(stop_word = &quot;stop.txt&quot;): There is no such file for stop words.
+</code></pre>
+
+<pre><code class="r">cutter[&quot;這是一段測試用文字，請不要再戰長庚資管了&quot;]
+</code></pre>
+
+<pre><code>##  [1] &quot;這是&quot; &quot;一段&quot; &quot;測試&quot; &quot;用&quot;   &quot;文字&quot; &quot;請&quot;   &quot;不要&quot; &quot;再戰&quot; &quot;長庚&quot; &quot;資管&quot;
+## [11] &quot;了&quot;
+</code></pre>
+
+<ul>
+<li>詞類標記</li>
+</ul>
+
+<pre><code class="r">tagger &lt;- worker(&quot;tag&quot;)
+tagger[&quot;台大最近的新聞怎麼這麼多&quot;]
+</code></pre>
+
+<pre><code>##     ns      f     uj      n      r      r      m 
+## &quot;台大&quot; &quot;最近&quot;   &quot;的&quot; &quot;新聞&quot; &quot;怎麼&quot; &quot;這麼&quot;   &quot;多&quot;
+</code></pre>
+
+<pre><code class="r">library(rvest)
+</code></pre>
+
+<pre><code>## Warning: package &#39;rvest&#39; was built under R version 3.2.5
+</code></pre>
+
+<pre><code>## Loading required package: xml2
+</code></pre>
+
+<pre><code>## Warning: package &#39;xml2&#39; was built under R version 3.2.5
+</code></pre>
+
+<pre><code class="r">PTTNBA &lt;- &quot;https://www.ptt.cc/bbs/NBA/index.html&quot;
+pttContent &lt;- read_html(PTTNBA)
+post_title &lt;- pttContent %&gt;% 
+  html_nodes(&quot;.title&quot;) %&gt;% 
+  html_text()
+post_title
+</code></pre>
+
+<pre><code>##  [1] &quot;\n\t\t\t\n\t\t\t\t[新聞] 破32年紀錄　詹皇改打控衛：從小就會解\n\t\t\t\n\t\t\t&quot;    
+##  [2] &quot;\n\t\t\t\n\t\t\t\tRe: [討論] 為甚麼得分王不改回加總計分方式?\n\t\t\t\n\t\t\t&quot;     
+##  [3] &quot;\n\t\t\t\n\t\t\t\t[花邊] Melo談為何頻繁出手長兩分：有空位我就投\n\t\t\t\n\t\t\t&quot;  
+##  [4] &quot;\n\t\t\t\n\t\t\t\t(本文已被刪除) &lt;ss2121647&gt;\n\t\t\t\n\t\t\t&quot;                     
+##  [5] &quot;\n\t\t\t\n\t\t\t\t[新聞] NBA／曾經考慮加盟尼克 厄文：因為離家近\n\t\t\t\n\t\t\t&quot;  
+##  [6] &quot;\n\t\t\t\n\t\t\t\tRe: [討論] 為甚麼得分王不改回加總計分方式?\n\t\t\t\n\t\t\t&quot;     
+##  [7] &quot;\n\t\t\t\n\t\t\t\t[花邊] 易建聯最難以啟齒的過往 美媒公佈「椅子\n\t\t\t\n\t\t\t&quot;   
+##  [8] &quot;\n\t\t\t\n\t\t\t\tRe: [討論] 字母哥這身體素質怎麼15順位才被選到？\n\t\t\t\n\t\t\t&quot;
+##  [9] &quot;\n\t\t\t\n\t\t\t\t[討論] 為何Wade難以融入騎士先發陣容?\n\t\t\t\n\t\t\t&quot;           
+## [10] &quot;\n\t\t\t\n\t\t\t\t[情報] ★今日排名(2017.10.25)★\n\t\t\t\n\t\t\t&quot;                
+## [11] &quot;\n\t\t\t\n\t\t\t\t[新聞] 戈塔陣前叫囂 鮑爾：我習以為常\n\t\t\t\n\t\t\t&quot;           
+## [12] &quot;\n\t\t\t\n\t\t\t\t[花邊] Wade老婆: 我只能排在韋德心中的第三位\n\t\t\t\n\t\t\t&quot;    
+## [13] &quot;\n\t\t\t\n\t\t\t\t[新聞] NBA／詹皇領軍騎士來勢洶洶 籃網主帥：\n\t\t\t\n\t\t\t&quot;    
+## [14] &quot;\n\t\t\t\n\t\t\t\t[情報] Markelle Fultz 將缺席接下來三場比賽\n\t\t\t\n\t\t\t&quot;     
+## [15] &quot;\n\t\t\t\n\t\t\t\t(本文已被刪除) [TimmyDD]\n\t\t\t\n\t\t\t&quot;                       
+## [16] &quot;\n\t\t\t\n\t\t\t\t[情報] Tony Parker被馬刺下放到發展聯盟\n\t\t\t\n\t\t\t&quot;         
+## [17] &quot;\n\t\t\t\n\t\t\t\t[情報] 現役球員 目前進名人堂的機率\n\t\t\t\n\t\t\t&quot;             
+## [18] &quot;\n\t\t\t\n\t\t\t\tRe: [情報] Tony Parker被馬刺下放到發展聯盟\n\t\t\t\n\t\t\t&quot;     
+## [19] &quot;\n\t\t\t\n\t\t\t\t[情報] CP25今天對戰小牛輪休\n\t\t\t\n\t\t\t&quot;                    
+## [20] &quot;\n\t\t\t\n\t\t\t\t[情報] 2017-18 自由球員市場異動整理表 (9/26)\n\t\t\t\n\t\t\t&quot;   
+## [21] &quot;\n\t\t\t\n\t\t\t\t[公告] 板規v6.2\n\t\t\t\n\t\t\t&quot;                                
+## [22] &quot;\n\t\t\t\n\t\t\t\t[情報] 2017-18 例行賽賽程 (10/18-31)\n\t\t\t\n\t\t\t&quot;           
+## [23] &quot;\n\t\t\t\n\t\t\t\t[情報] NBA Standings (171025)\n\t\t\t\n\t\t\t&quot;                  
+## [24] &quot;\n\t\t\t\n\t\t\t\t[情報] ★今日排名(2017.10.25)★\n\t\t\t\n\t\t\t&quot;
+</code></pre>
+
+<pre><code class="r">cutter &lt;- worker()
+cutter[post_title] ## 不分行輸出
+</code></pre>
+
+<pre><code>##   [1] &quot;新聞&quot;       &quot;破&quot;         &quot;32&quot;         &quot;年&quot;         &quot;紀錄&quot;      
+##   [6] &quot;　&quot;         &quot;詹&quot;         &quot;皇&quot;         &quot;改&quot;         &quot;打&quot;        
+##  [11] &quot;控&quot;         &quot;衛&quot;         &quot;從小&quot;       &quot;就會解&quot;     &quot;Re&quot;        
+##  [16] &quot;討論&quot;       &quot;為&quot;         &quot;甚麼&quot;       &quot;得分王&quot;     &quot;不&quot;        
+##  [21] &quot;改回&quot;       &quot;加&quot;         &quot;總計&quot;       &quot;分&quot;         &quot;方式&quot;      
+##  [26] &quot;花邊&quot;       &quot;Melo&quot;       &quot;談為何&quot;     &quot;頻繁&quot;       &quot;出手&quot;      
+##  [31] &quot;長&quot;         &quot;兩分&quot;       &quot;有&quot;         &quot;空位&quot;       &quot;我&quot;        
+##  [36] &quot;就&quot;         &quot;投&quot;         &quot;本文&quot;       &quot;已&quot;         &quot;被&quot;        
+##  [41] &quot;刪除&quot;       &quot;ss2121647&quot;  &quot;新聞&quot;       &quot;NBA&quot;        &quot;曾經&quot;      
+##  [46] &quot;考慮&quot;       &quot;加盟&quot;       &quot;尼克&quot;       &quot;厄文&quot;       &quot;因&quot;        
+##  [51] &quot;為&quot;         &quot;離家近&quot;     &quot;Re&quot;         &quot;討論&quot;       &quot;為&quot;        
+##  [56] &quot;甚麼&quot;       &quot;得分王&quot;     &quot;不&quot;         &quot;改回&quot;       &quot;加&quot;        
+##  [61] &quot;總計&quot;       &quot;分&quot;         &quot;方式&quot;       &quot;花邊&quot;       &quot;易建聯&quot;    
+##  [66] &quot;最&quot;         &quot;難以&quot;       &quot;啟齒&quot;       &quot;的&quot;         &quot;過往&quot;      
+##  [71] &quot;美媒&quot;       &quot;公佈&quot;       &quot;椅子&quot;       &quot;Re&quot;         &quot;討論&quot;      
+##  [76] &quot;字母&quot;       &quot;哥&quot;         &quot;這&quot;         &quot;身體素質&quot;   &quot;怎麼&quot;      
+##  [81] &quot;15&quot;         &quot;順位&quot;       &quot;才&quot;         &quot;被&quot;         &quot;選到&quot;      
+##  [86] &quot;討論&quot;       &quot;為何&quot;       &quot;Wade&quot;       &quot;難以&quot;       &quot;融入&quot;      
+##  [91] &quot;騎士&quot;       &quot;先發&quot;       &quot;陣容&quot;       &quot;情報&quot;       &quot;今日&quot;      
+##  [96] &quot;排名&quot;       &quot;2017.10.25&quot; &quot;新聞&quot;       &quot;戈塔&quot;       &quot;陣前&quot;      
+## [101] &quot;叫囂&quot;       &quot;鮑爾&quot;       &quot;我&quot;         &quot;習&quot;         &quot;以&quot;        
+## [106] &quot;為&quot;         &quot;常&quot;         &quot;花邊&quot;       &quot;Wade&quot;       &quot;老婆&quot;      
+## [111] &quot;我&quot;         &quot;只能&quot;       &quot;排在&quot;       &quot;韋德&quot;       &quot;心中&quot;      
+## [116] &quot;的&quot;         &quot;第三位&quot;     &quot;新聞&quot;       &quot;NBA&quot;        &quot;詹&quot;        
+## [121] &quot;皇&quot;         &quot;領軍&quot;       &quot;騎士&quot;       &quot;來勢洶洶&quot;   &quot;籃網&quot;      
+## [126] &quot;主帥&quot;       &quot;情報&quot;       &quot;Markelle&quot;   &quot;Fultz&quot;      &quot;將&quot;        
+## [131] &quot;缺席&quot;       &quot;接下來&quot;     &quot;三場&quot;       &quot;比賽&quot;       &quot;本文&quot;      
+## [136] &quot;已&quot;         &quot;被&quot;         &quot;刪除&quot;       &quot;TimmyDD&quot;    &quot;情報&quot;      
+## [141] &quot;Tony&quot;       &quot;Parker&quot;     &quot;被&quot;         &quot;馬刺&quot;       &quot;下&quot;        
+## [146] &quot;放到&quot;       &quot;發展&quot;       &quot;聯盟&quot;       &quot;情報&quot;       &quot;現役&quot;      
+## [151] &quot;球員&quot;       &quot;目前&quot;       &quot;進&quot;         &quot;名人堂&quot;     &quot;的&quot;        
+## [156] &quot;機率&quot;       &quot;Re&quot;         &quot;情報&quot;       &quot;Tony&quot;       &quot;Parker&quot;    
+## [161] &quot;被&quot;         &quot;馬刺&quot;       &quot;下&quot;         &quot;放到&quot;       &quot;發展&quot;      
+## [166] &quot;聯盟&quot;       &quot;情報&quot;       &quot;CP25&quot;       &quot;今天&quot;       &quot;對戰&quot;      
+## [171] &quot;小牛&quot;       &quot;輪休&quot;       &quot;情報&quot;       &quot;2017-18&quot;    &quot;自由&quot;      
+## [176] &quot;球員&quot;       &quot;市場&quot;       &quot;異動&quot;       &quot;整理表&quot;     &quot;9&quot;         
+## [181] &quot;26&quot;         &quot;公告&quot;       &quot;板規&quot;       &quot;v6&quot;         &quot;2&quot;         
+## [186] &quot;情報&quot;       &quot;2017-18&quot;    &quot;例行&quot;       &quot;賽&quot;         &quot;賽程&quot;      
+## [191] &quot;10&quot;         &quot;18-31&quot;      &quot;情報&quot;       &quot;NBA&quot;        &quot;Standings&quot; 
+## [196] &quot;171025&quot;     &quot;情報&quot;       &quot;今日&quot;       &quot;排名&quot;       &quot;2017.10.25&quot;
+</code></pre>
+
+<pre><code class="r">cutter$bylines&lt;-T
+cutter[post_title] ## 分行輸出
+</code></pre>
+
+<pre><code>## [[1]]
+##  [1] &quot;新聞&quot;   &quot;破&quot;     &quot;32&quot;     &quot;年&quot;     &quot;紀錄&quot;   &quot;　&quot;     &quot;詹&quot;    
+##  [8] &quot;皇&quot;     &quot;改&quot;     &quot;打&quot;     &quot;控&quot;     &quot;衛&quot;     &quot;從小&quot;   &quot;就會解&quot;
+## 
+## [[2]]
+##  [1] &quot;Re&quot;     &quot;討論&quot;   &quot;為&quot;     &quot;甚麼&quot;   &quot;得分王&quot; &quot;不&quot;     &quot;改回&quot;  
+##  [8] &quot;加&quot;     &quot;總計&quot;   &quot;分&quot;     &quot;方式&quot;  
+## 
+## [[3]]
+##  [1] &quot;花邊&quot;   &quot;Melo&quot;   &quot;談為何&quot; &quot;頻繁&quot;   &quot;出手&quot;   &quot;長&quot;     &quot;兩分&quot;  
+##  [8] &quot;有&quot;     &quot;空位&quot;   &quot;我&quot;     &quot;就&quot;     &quot;投&quot;    
+## 
+## [[4]]
+## [1] &quot;本文&quot;      &quot;已&quot;        &quot;被&quot;        &quot;刪除&quot;      &quot;ss2121647&quot;
+## 
+## [[5]]
+##  [1] &quot;新聞&quot;   &quot;NBA&quot;    &quot;曾經&quot;   &quot;考慮&quot;   &quot;加盟&quot;   &quot;尼克&quot;   &quot;厄文&quot;  
+##  [8] &quot;因&quot;     &quot;為&quot;     &quot;離家近&quot;
+## 
+## [[6]]
+##  [1] &quot;Re&quot;     &quot;討論&quot;   &quot;為&quot;     &quot;甚麼&quot;   &quot;得分王&quot; &quot;不&quot;     &quot;改回&quot;  
+##  [8] &quot;加&quot;     &quot;總計&quot;   &quot;分&quot;     &quot;方式&quot;  
+## 
+## [[7]]
+##  [1] &quot;花邊&quot;   &quot;易建聯&quot; &quot;最&quot;     &quot;難以&quot;   &quot;啟齒&quot;   &quot;的&quot;     &quot;過往&quot;  
+##  [8] &quot;美媒&quot;   &quot;公佈&quot;   &quot;椅子&quot;  
+## 
+## [[8]]
+##  [1] &quot;Re&quot;       &quot;討論&quot;     &quot;字母&quot;     &quot;哥&quot;       &quot;這&quot;       &quot;身體素質&quot;
+##  [7] &quot;怎麼&quot;     &quot;15&quot;       &quot;順位&quot;     &quot;才&quot;       &quot;被&quot;       &quot;選到&quot;    
+## 
+## [[9]]
+## [1] &quot;討論&quot; &quot;為何&quot; &quot;Wade&quot; &quot;難以&quot; &quot;融入&quot; &quot;騎士&quot; &quot;先發&quot; &quot;陣容&quot;
+## 
+## [[10]]
+## [1] &quot;情報&quot;       &quot;今日&quot;       &quot;排名&quot;       &quot;2017.10.25&quot;
+## 
+## [[11]]
+##  [1] &quot;新聞&quot; &quot;戈塔&quot; &quot;陣前&quot; &quot;叫囂&quot; &quot;鮑爾&quot; &quot;我&quot;   &quot;習&quot;   &quot;以&quot;   &quot;為&quot;   &quot;常&quot;  
+## 
+## [[12]]
+##  [1] &quot;花邊&quot;   &quot;Wade&quot;   &quot;老婆&quot;   &quot;我&quot;     &quot;只能&quot;   &quot;排在&quot;   &quot;韋德&quot;  
+##  [8] &quot;心中&quot;   &quot;的&quot;     &quot;第三位&quot;
+## 
+## [[13]]
+## [1] &quot;新聞&quot;     &quot;NBA&quot;      &quot;詹&quot;       &quot;皇&quot;       &quot;領軍&quot;     &quot;騎士&quot;    
+## [7] &quot;來勢洶洶&quot; &quot;籃網&quot;     &quot;主帥&quot;    
+## 
+## [[14]]
+## [1] &quot;情報&quot;     &quot;Markelle&quot; &quot;Fultz&quot;    &quot;將&quot;       &quot;缺席&quot;     &quot;接下來&quot;  
+## [7] &quot;三場&quot;     &quot;比賽&quot;    
+## 
+## [[15]]
+## [1] &quot;本文&quot;    &quot;已&quot;      &quot;被&quot;      &quot;刪除&quot;    &quot;TimmyDD&quot;
+## 
+## [[16]]
+## [1] &quot;情報&quot;   &quot;Tony&quot;   &quot;Parker&quot; &quot;被&quot;     &quot;馬刺&quot;   &quot;下&quot;     &quot;放到&quot;   &quot;發展&quot;  
+## [9] &quot;聯盟&quot;  
+## 
+## [[17]]
+## [1] &quot;情報&quot;   &quot;現役&quot;   &quot;球員&quot;   &quot;目前&quot;   &quot;進&quot;     &quot;名人堂&quot; &quot;的&quot;     &quot;機率&quot;  
+## 
+## [[18]]
+##  [1] &quot;Re&quot;     &quot;情報&quot;   &quot;Tony&quot;   &quot;Parker&quot; &quot;被&quot;     &quot;馬刺&quot;   &quot;下&quot;    
+##  [8] &quot;放到&quot;   &quot;發展&quot;   &quot;聯盟&quot;  
+## 
+## [[19]]
+## [1] &quot;情報&quot; &quot;CP25&quot; &quot;今天&quot; &quot;對戰&quot; &quot;小牛&quot; &quot;輪休&quot;
+## 
+## [[20]]
+## [1] &quot;情報&quot;    &quot;2017-18&quot; &quot;自由&quot;    &quot;球員&quot;    &quot;市場&quot;    &quot;異動&quot;    &quot;整理表&quot; 
+## [8] &quot;9&quot;       &quot;26&quot;     
+## 
+## [[21]]
+## [1] &quot;公告&quot; &quot;板規&quot; &quot;v6&quot;   &quot;2&quot;   
+## 
+## [[22]]
+## [1] &quot;情報&quot;    &quot;2017-18&quot; &quot;例行&quot;    &quot;賽&quot;      &quot;賽程&quot;    &quot;10&quot;      &quot;18-31&quot;  
+## 
+## [[23]]
+## [1] &quot;情報&quot;      &quot;NBA&quot;       &quot;Standings&quot; &quot;171025&quot;   
+## 
+## [[24]]
+## [1] &quot;情報&quot;       &quot;今日&quot;       &quot;排名&quot;       &quot;2017.10.25&quot;
+</code></pre>
+
+<pre><code class="r">new_user_word(cutter,&#39;Markelle Fultz&#39;,&quot;n&quot;)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<ul>
+<li>最常出現的詞彙</li>
+</ul>
+
+<pre><code class="r">cutter &lt;- worker()
+sort(table(cutter[post_title]),decreasing = T)
+</code></pre>
+
+<pre><code>## 
+##       情報         被       討論         為       新聞         Re 
+##         10          5          4          4          4          4 
+##         的       花邊         我        NBA    2017-18 2017.10.25 
+##          3          3          3          3          2          2 
+##       本文         不     得分王       發展       方式       放到 
+##          2          2          2          2          2          2 
+##         分       改回         皇         加       今日       聯盟 
+##          2          2          2          2          2          2 
+##       馬刺       難以       排名       騎士       球員       刪除 
+##          2          2          2          2          2          2 
+##       甚麼         下         已         詹       總計     Parker 
+##          2          2          2          2          2          2 
+##       Tony       Wade         　         10         15     171025 
+##          2          2          1          1          1          1 
+##      18-31          2         26         32          9       板規 
+##          1          1          1          1          1          1 
+##       鮑爾       比賽         才       曾經         常       出手 
+##          1          1          1          1          1          1 
+##       從小         打     第三位       對戰       厄文         改 
+##          1          1          1          1          1          1 
+##       戈塔         哥       公佈       公告       過往       機率 
+##          1          1          1          1          1          1 
+##       紀錄       加盟         將       叫囂     接下來       今天 
+##          1          1          1          1          1          1 
+##         進         就     就會解       考慮       空位         控 
+##          1          1          1          1          1          1 
+##   來勢洶洶       籃網       老婆     離家近       例行       兩分 
+##          1          1          1          1          1          1 
+##       領軍       輪休       美媒     名人堂       目前       尼克 
+##          1          1          1          1          1          1 
+##         年       排在       頻繁         破       啟齒       缺席 
+##          1          1          1          1          1          1 
+##       融入         賽       賽程       三場   身體素質       市場 
+##          1          1          1          1          1          1 
+##       順位     談為何         投       韋德       為何         衛 
+##          1          1          1          1          1          1 
+##         習       先發       現役       小牛       心中       選到 
+##          1          1          1          1          1          1 
+##         以       椅子     易建聯       異動         因         有 
+##          1          1          1          1          1          1 
+##       怎麼         長         這       陣前       陣容     整理表 
+##          1          1          1          1          1          1 
+##       只能       主帥       字母       自由         最       CP25 
+##          1          1          1          1          1          1 
+##      Fultz   Markelle       Melo  ss2121647  Standings    TimmyDD 
+##          1          1          1          1          1          1 
+##         v6 
+##          1
+</code></pre>
+
+<pre><code class="r">library(wordcloud2)
+</code></pre>
+
+<pre><code>## Warning: package &#39;wordcloud2&#39; was built under R version 3.2.5
+</code></pre>
+
+<pre><code class="r">wordcloud2(demoFreq, size = 1,shape = &#39;star&#39;)
+</code></pre>
+
+<pre><code>## Error in loadNamespace(name): there is no package called &#39;webshot&#39;
+</code></pre>
+
+<pre><code class="r">#wordcloud2(demoFreq, size = 2, minRotation = -pi/6, maxRotation = -pi/6, rotateRatio = 1)
+#wordcloud2(demoFreq, size = 2, minRotation = -pi/2, maxRotation = -pi/2)
+</code></pre>
+
+<pre><code class="r">letterCloud(demoFreq, word = &quot;R&quot;, size = 2)
+</code></pre>
+
+<pre><code>## Error in loadNamespace(name): there is no package called &#39;webshot&#39;
+</code></pre>
+
+<pre><code class="r">## Sys.setlocale(&quot;LC_CTYPE&quot;,&quot;eng&quot;)
+
+wordcloud2(demoFreqC, size = 2, fontFamily = &quot;微软雅黑&quot;,
+           color = &quot;random-light&quot;, backgroundColor = &quot;grey&quot;)
+</code></pre>
+
+<pre><code>## Error in loadNamespace(name): there is no package called &#39;webshot&#39;
+</code></pre>
+
+<pre><code class="r">## STHeiti ??
+</code></pre>
+
+<blockquote>
+<p>把上述表格轉為 data frame 再 wordcloud</p>
+</blockquote>
+
+<h3>案例練習：批踢踢的？版</h3>
+
+<h3>案例練習：分析魯迅的吶喊</h3>
+
+<p>https//<a href="http://www.gutenberg.org">www.gutenberg.org</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h1>參考</h1>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><a href="http://qinwenfeng.com/jiebaR/">http://qinwenfeng.com/jiebaR/</a></li>
+<li><a href="https://cran.r-project.org/web/packages/wordcloud2/vignettes/wordcloud.html">https://cran.r-project.org/web/packages/wordcloud2/vignettes/wordcloud.html</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='參考'>
+         2
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="http://slidifylibraries2.googlecode.com/git/inst/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

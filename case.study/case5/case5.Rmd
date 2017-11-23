@@ -1,0 +1,216 @@
+---
+title: "案例學習五"
+output: 
+  html_notebook:
+    toc: true
+---
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+> 期中期待
+
+- (給入門起跑者) [Learning path on DS/R](https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/learning-path-r-data-science/)
+
+- (給打算入行者) [Skills checklist](http://1onjea25cyhx3uvxgs4vu325-wpengine.netdna-ssl.com/wp-content/uploads/2014/12/UdacityUltimateSkillChecklistForYourFirstDataAnalystJob.pdf) 
+
+- (給雄心壯志者) [Toward Kaggle competition](https://www.analyticsvidhya.com/blog/2015/12/kaggle-solution-cooking-text-mining-competition/)
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+```{r}
+library(jiebaR)
+library(tidyverse)
+library(tidytext)
+library(wordcloud2)
+```
+
+
+
+# Exploratory (Textual) Data Analysis
+
+E(T)DA 兩個核心知識技能：
+
+- Statistics
+- Graphics：可以試著用例子去學。參考 [R graph gallery](http://www.r-graph-gallery.com/) 或 [Python  graph gallery](https://python-graph-gallery.com/)
+
+文本資料多了什麼？
+
+- 前處理 Pre-processing ([編碼處理](http://cn.qinwenfeng.com/ropencc/)，[中文斷詞](http://qinwenfeng.com/jiebaR/))
+- [字串處理 String manipulation](http://www.gastonsanchez.com/Handling_and_Processing_Strings_in_R.pdf
+), esp. (linguistic) pattern extraction
+- 語料庫 corpus 與詞庫 lexicon 
+
+--------------------------
+# Case study: FB as Data 
+
+臉書是重要的社會網路，記錄這個時代不少的 human data。
+
+> 先想像妳的問題與興趣
+
+### Authentication process to access Facebook from R
+想撈取 Facebook 上的資料，須先取得 facebook 的**權限認證**。認證方式有兩種，一種是建立 Facebook App 的方式，另一種則是直接產生一個暫時的**存取權杖**（token），不管使用那一種都可以。
+
+`參考：https://blog.gtwang.org/r/facebook-social-media-mining-with-r/`
+
+
+#### 第一種方式：建立一個 Facebook App，以取得通過 Facebook 的權限認證機制，
+  
+  - 註冊進入 https://developers.facebook.com/
+  - 於右上方「我的應用程式」中，點選「新增應用程式」，輸入驗證碼。
+  - 取一個任意的 App 的名稱後，點選下方建立新的 Facebook 應用程式編號(Create New Facebook App ID)。先把「應用程式編號」和「應用程式密鑰」記下來。
+  - OAuth Settings：
+    - 到左下按「新增產品」
+    - 選「Facebook 登入」-
+      - 把 `http://localhost:1410` 貼到「有效的 OAuth 重新導向 URI」的欄位 
+      -「設定」- 「網站」- 填入 http://localhost:1410/ - 儲存
+
+```{r, warning=FALSE}
+#安裝套件Rfaceboo (Access to Facebook API via R)
+#install.packages("Rfacebook")
+library(Rfacebook)
+# app: test3
+fb_oauth <- fbOAuth(
+  app_id = "1495817010471956",                          # 填入應用程式編號
+  app_secret = "a9791242aab6f6c24b37d249f8f39da8")     # 填入應用程式密鑰    
+# Error in oauth2.0_access_token(endpoint, app, code = code, user_params = user_params,  : 
+# Bad Request (HTTP 400). Failed to get an access token.
+save(fb_oauth, file="fb_oauth")
+load("fb_oauth")
+```
+
+
+
+#### 第二種方式：取得 Facebook 存取權杖（Token）
+
+不需建立 facebook app，只要從網頁上產生存取權杖代碼即可使用，不過時效只有兩小時，過期後就要重新產生。
+
+  - 到 `https://developers.facebook.com/tools/explorer` -「取得權杖」- 「取得用戶存取權杖」
+  - 選擇要開放的權限。
+  - 複製產生的存取權杖代碼，放在 R 的 token 變數中。
+
+> 好心的助教：
+http://lope.linguistics.ntu.edu.tw/rlads/
+
+
+```{r}
+token <- 'EAACEdEose0cBAFfKUvkZCJheKlZB2ewZApwUCGkR78bUKZCVDgVJlwLk543h1VbthIDZAYZC4oFFAiq2gP7eyJBO1IWoux7IOSCjrTZBvTczdhyZBJ740Trm93wE5uAQ8vuIMe0RSBVU1SZCiZCmJmCdUVZAU3aHT6X2YZCKD7ug5oa4jy1ZCRRRfqCxvHuZB7HhxJfkewrSHvvCVuYwZDZD'
+
+
+```
+
+### 開始擷取資料分析
+
+參考 `Rfacebook` 的[套件說明](https://cran.r-project.org/web/packages/Rfacebook/Rfacebook.pdf)。
+這個較新的[使用簡易說明](http://www.listendata.com/2017/03/facebook-data-mining-using-r.html)也可參考（因應 FB 的 api policy）
+
+- The `getUsers` function returns public information about one or more Facebook user. 
+
+
+```{r}
+me <- getUsers("me", token, private_info = TRUE)
+#me <- getUsers("me",token=fb_oauth)
+me$name
+```
+
+- `searchPages()`, `getPost()`(needs some tweak)
+
+```{r}
+pages <- searchPages('data science with R', token)
+#pages <- searchPages('data science with R', fb_oauth)
+names(pages)
+```
+
+- 所有我按讚的頁面
+
+```{r}
+likes = getLikes(user="me", token = token)
+sample(likes$names, 10)
+hist(pages$likes, col="blue", border = "white", breaks = 25)
+```
+
+
+- 含有特定字詞的頁面
+
+```{r}
+pages <- searchPages(string="trump", token = token, n=50) 
+# It returns 16 variables. check with str(pages)
+head(pages$name)
+```
+
+- 抽取特定頁面的所有貼文
+
+```{r}
+BBCpage <- getPage(page="bbcnews", token = token, n=50) 
+```
+
+
+- 特定時間的所有貼文
+
+```{r}
+BBCpage.2 <- getPage("bbcnews", token = token, n=50, since='2017/10/01', until='2017/10/20')
+```
+
+- 哪那一則貼文得到最多的讚?
+
+```{r}
+summary <- BBCpage.2[which.max(BBCpage.2$likes_count),]
+summary$message
+```
+
+
+- 哪一則得到最多的評論?
+```{r}
+summary1 = BBCpage.2[which.max(BBCpage.2$comments_count),]
+
+```
+
+- 哪一則貼文最多分享?
+```{r}
+summary2 = BBCpage.2[which.max(BBCpage.2$shares_count),]
+```
+
+- 得到最多讚的貼文的所有按讚者
+
+```{r}
+post <- getPost(summary$id[1], token = token, comments = FALSE, n.likes=2000)
+
+```
+
+
+- 看看究竟是誰（注意個資）
+
+```{r}
+likes <- post$likes
+head(likes)
+```
+
+
+- 特定貼文的評論
+
+To know what users think about a post, it is important to analyze their comments.
+```{r}
+post <- getPost(BBCpage.2$id[1], token=token, n.comments=1000, likes=FALSE)
+comments <- post$comments
+```
+
+- 哪個評論得到最多的讚？
+
+```{r}
+comments[which.max(comments$likes_count),]
+```
+
+- 最近貼文的心情（需要 tweak）
+
+Facebook has more than a like button. Last year, it launched emoji (emoticons). If a post got 1k likes, it does not mean everyone really loves the comment. The reaction can be happy, sad or angry.
+
+```{r}
+post <- getReactions(post=BBCpage.2$id[1], token= token)
+```
+
+
+
+# 期中考前說明
+- 3 小時個人考試
+- 6 天團體加分題：微計畫
+
+

@@ -1,0 +1,174 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+library(janeaustenr)
+library(tidyverse)
+library(stringr)
+library(tidytext)
+library(wordcloud2)
+```
+
+
+```{r}
+original_books <- austen_books() %>%
+  group_by(book) %>%
+  mutate(linenumber = row_number(),
+         chapter = cumsum(str_detect(text, regex("^chapter [\\divxlc]",
+                                                 ignore_case = TRUE)))) %>%
+  ungroup()
+
+original_books
+
+```
+
+- To work with this as a tidy dataset, we need to restructure it as one-token-per-row format. The unnest_tokens function is a way to convert a dataframe with a text column to be **one-token-per-row**:
+
+```{r}
+tidy_books <- original_books %>%
+  unnest_tokens(word, text)
+
+tidy_books
+```
+
+- We can remove stop words (kept in the tidytext dataset stop_words) with an `anti_join`.
+
+```{r}
+data("stop_words")
+cleaned_books <- tidy_books %>%
+  anti_join(stop_words)
+```
+
+- use count to find the most common words in all the books as a whole.
+
+```{r}
+cleaned_books %>%
+  count(word, sort = TRUE)
+```
+
+
+- What are the most common joy words in Emma?
+
+```{r}
+nrcjoy <- get_sentiments("nrc") %>%
+  filter(sentiment == "joy")
+
+tidy_books %>%
+  filter(book == "Emma") %>%
+  semi_join(nrcjoy) %>%
+  count(word, sort = TRUE)
+```
+
+
+- examine how sentiment changes during each novel.
+
+```{r}
+bing <- get_sentiments("bing")
+
+janeaustensentiment <- tidy_books %>%
+  inner_join(bing) %>%
+  count(book, index = linenumber %/% 80, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative)
+
+
+```
+
+-plot these sentiment scores across the plot trajectory of each novel.
+
+```{r}
+ggplot(janeaustensentiment, aes(index, sentiment, fill = book)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  facet_wrap(~book, ncol = 2, scales = "free_x")
+```
+
+
+- Wordclouds
+
+```{r}
+cleaned_books %>%
+  count(word) %>%
+  with(wordcloud2(word))
+```
+
+
+
+
+## [Exercise.1]: 魯迅:阿 Q 正傳
+
+
+```{r, eval=FALSE}
+luxun <- scan("http://www.gutenberg.org/files/25332/25332-0.txt",
+                what="char", sep="\n")
+
+
+
+# another lazy way
+require(gutenbergr)
+luxun <- gutenberg_download(25332)
+mixSeg <= luxun$text
+luxun.seg <- segment(luxun$text, mixSeg)
+write.table(luxun.seg, 'luxun.txt')
+```
+
+
+
+
+
+```{r}
+# 讀取數據
+# 這裡文件內容是中文，採用的UTF-8格式，所以對encoding進行限制
+fw = readLines('xyj.txt', encoding = 'UTF-8') # 文件xyz.txt的4020行分別存入到了一個長度為4020的向量中
+
+# 數據預處理和計算
+# 去除向量中每個元素的開始和結尾的空格
+fw.real = str_trim(fw)
+# 去除向量中為空的元素
+fw.real = fw.real[!fw.real == '']
+# 對向量中每個字符進行拆分
+fw.list = str_split(fw.real, '') # 結果是數據類型為列表
+# 將數據的類型由列表轉化為數據框
+single = data.frame(ch = do.call('c',fw.list))
+# 統計每個字出現的次數，並按次數由高到底排列
+result = single %>% 
+  group_by(ch) %>% 
+  summarise(num = n()) %>% 
+  arrange(desc(num))
+
+# 寫出數據
+write.csv(result, 'result_r.csv', row.names = F)
+```
+
+
+
+方案二借助stringr包對xyz.txt文件進行預處理，借助tidytest包對每個字單獨提取，然後借助dplyr包實現每個字出現次數的統計。
+
+```{r}
+
+# 方案二，不需要去除向量中為空的元素
+# fw.real = fw.real[!fw.real == '']
+
+# 統計每個字出現的次數，並按次數由高到底排列
+result.2 = result %>%
+  unnest_tokens(ch, text, token = 'characters') %>% 
+  group_by(ch) %>% 
+  summarise(num = n()) %>% 
+  arrange(desc(num))
+
+# 寫出數據
+# 在windows系統下，R寫出的數據文件默認為gbk的編碼方式
+write.csv(result, 'data/result_r.csv', row.names = F)
+# 通過參數fileEncoding，將R寫出的數據文件設置為UTF-8的編碼方式
+write.csv(result, 'data/result_r_utf8.csv', row.names = F,fileEncoding = 'UTF-8')
+
+```
+
+
+
+
+
+
